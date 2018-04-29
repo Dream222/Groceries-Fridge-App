@@ -1,0 +1,86 @@
+<div class="register">
+    <h1>Groceries Add</h1>
+    <form v-on:submit.prevent="groceriesRegister()">
+        <input type="text" placeholder="Groceries name" v-model="groceries_data.groceries_name">
+        <select class="groceries-option" v-model="groceries_data.category">
+            <option value="fridge1">Fridge1</option>
+            <option value="fridge2">Fridge2</option>
+        </select>
+        <button type="submit" value="login">Add</button>
+        <br>
+        <br>
+    </form>
+
+    <div>
+        <b-card-group deck>
+            <b-card title="Fridge1" header-tag="header" footer-tag="footer">
+                <h6 slot="header" class="mb-0">Header Slot</h6>
+                <em slot="footer">Footer Slot</em>
+                <div>
+                    <template>
+                        <b-table striped hover :items="fridges1" :fields="fields"></b-table>
+                    </template>
+                </div>
+            </b-card>
+            <b-card title="Fridge2" header-tag="header" footer-tag="footer">
+                <h6 slot="header" class="mb-0">Header Slot</h6>
+                <em slot="footer">Footer Slot</em>
+                <div>
+                    <template>
+                        <b-table striped hover :items="fridges2" :fields="fields"></b-table>
+                    </template>
+                </div>
+            </b-card>
+        </b-card-group>
+    </div>
+
+    <div>
+        <b-btn v-b-modal.modal1>Move Groceries</b-btn>
+
+        <!-- Modal Component -->
+        <b-modal id="modal1" size="lg" title="Move groceries between Fridge 1 and Fridge 2">
+            <b-card-group deck>
+                <b-card title="Fridge1" header-tag="header" footer-tag="footer">
+                    <h6 slot="header" class="mb-0">Header Slot</h6>
+                    <em slot="footer">Footer Slot</em>
+                    <div>
+                        <template>
+                            <b-table striped hover :items="fridges1" :fields="modal_fields">
+                                <template slot="show_details" slot-scope="row">
+                                    <b-form-checkbox @click.native.stop @change="getRow(row.item)" v-model="rowData">
+                                        Details via check
+                                    </b-form-checkbox>
+                                </template>
+                            </b-table>
+                        </template>
+                    </div>
+                </b-card>
+                <div>
+                    <b-button @click="MoveFridge2()">&lt&lt</b-button>
+                    <b-button @click="MoveFridge1()">&gt&gt</b-button>
+                </div>
+                <b-card title="Fridge2" header-tag="header" footer-tag="footer">
+                    <h6 slot="header" class="mb-0">Header Slot</h6>
+                    <em slot="footer">Footer Slot</em>
+                    <div>
+                        <template>
+                            <b-table striped hover :items="fridges2" :fields="modal_fields" >
+                                    <template slot="show_details" slot-scope="row">
+                                        <b-form-checkbox @click.native.stop @change="getRow(row.item)" v-model="rowData">
+                                            Details via check
+                                        </b-form-checkbox>
+                                    </template>
+                            </b-table>
+                        </template>
+                    </div>
+                </b-card>
+            </b-card-group>
+            <div>
+                <br><br>
+                <b-button @click="MovedSave()">Move</b-button>
+            </div>
+        </b-modal>
+    </div>
+
+
+</div>

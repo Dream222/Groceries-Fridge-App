@@ -1,0 +1,18 @@
+<div class="login">
+    <h1>Login Page</h1>
+    <form v-on:submit.prevent="loginUser()">
+        <b-alert show variant="primary">Primary Alert</b-alert>
+        <input type="text" placeholder="enter username" v-model="loginDetails.residentID">
+        <input type="password" placeholder="enter password" v-model="loginDetails.password">
+        <button type="submit" value="login">LOGIN</button>
+    </form>
+    <div class="row">
+        <template v-for="variant in ['primary','secondary','success','outline-success','warning','danger','link']">
+            <div class="col-md-4 pb-2" v-for="size in ['sm','','lg']" :key="`${variant}_${size}`">
+                <b-button :size="size" :variant="variant">
+                    {{variant}} {{size}}
+                </b-button>
+            </div>
+        </template>
+    </div>
+</div>
